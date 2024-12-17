@@ -1,8 +1,7 @@
 SELECT * FROM products
-WHERE (categoryid = COALESCE(1, categoryid))
-  AND (productname ILIKE '%' || COALESCE('laptop', '') || '%')
-  AND (price BETWEEN COALESCE(500::money, 0::money) AND COALESCE(1500::money, price))
-  AND (sku = COALESCE('SKU001', sku));
+WHERE productname ILIKE '%laptop%'
+  AND price BETWEEN 500::money AND 1500::money
+  AND sku = 'SKU001';
 
 SELECT p1.productname AS product1_name, p1.price AS product1_price, p1.description AS product1_description,
        p2.productname AS product2_name, p2.price AS product2_price, p2.description AS product2_description
@@ -13,7 +12,7 @@ WHERE p1.productid = 4 AND p2.productid = 5;
 SELECT p.productname, p.price, d.discountpercentage, d.startdate, d.enddate
 FROM products p
 JOIN discounts d ON p.productid = d.productid
-WHERE d.startdate <= CURRENT_DATE AND d.enddate >= CURRENT_DATE;
+WHERE d.startdate <= '2023-11-01' AND d.enddate >= '2023-11-30';
 
 SELECT SUM(oi.price * oi.quantity) AS total_amount
 FROM orderitems oi
@@ -72,12 +71,12 @@ SELECT p.productname, p.price, p.description, p.mainphoto, sp.discountpercentage
        (p.price * (1 - sp.discountpercentage / 100)) AS discounted_price
 FROM saleproducts sp
 JOIN products p ON sp.productid = p.productid
-WHERE sp.startdate <= CURRENT_DATE AND sp.enddate >= CURRENT_DATE;
+WHERE sp.startdate <= '2023-11-01' AND sp.enddate >= '2023-11-30';
 
 SELECT p.productname, p.price, p.description, p.mainphoto, pr.promotionname, pr.description
 FROM products p
 JOIN promotions pr ON p.promotionid = pr.promotionid
-WHERE pr.startdate <= CURRENT_DATE AND pr.enddate >= CURRENT_DATE;
+WHERE pr.startdate <= '2023-11-10';
 
 SELECT * FROM products
-WHERE categoryid = 1 AND stockquantity > 0;
+WHERE categoryid = 4 AND stockquantity > 1;
