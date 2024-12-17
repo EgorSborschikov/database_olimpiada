@@ -7,8 +7,8 @@ WHERE (categoryid = COALESCE(1, categoryid))
 SELECT p1.productname AS product1_name, p1.price AS product1_price, p1.description AS product1_description,
        p2.productname AS product2_name, p2.price AS product2_price, p2.description AS product2_description
 FROM products p1
-JOIN products p2 ON p1.categoryid = p2.categoryid
-WHERE p1.productid = 1 AND p2.productid = 2;
+JOIN products p2 ON p1.categoryid < p2.categoryid
+WHERE p1.productid = 4 AND p2.productid = 5;
 
 SELECT p.productname, p.price, d.discountpercentage, d.startdate, d.enddate
 FROM products p
